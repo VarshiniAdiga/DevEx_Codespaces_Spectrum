@@ -1,0 +1,18 @@
+#signon {
+    text-align: center;
+}
+
+#login {
+    background-color: #04aa6d;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+}
+
+button:hover {
+    opacity: 0.8;
+}

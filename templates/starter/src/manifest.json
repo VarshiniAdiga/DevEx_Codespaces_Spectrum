@@ -1,0 +1,31 @@
+{
+    "id": "hello-world-starter",
+    "name": "Hello World Starter",
+    "version": "1",
+    "manifestVersion": 1,
+    "main": "index.html",
+    "requirements": {
+        "apps": ["Spice"]
+    },
+    "icon": [
+        {
+            "width": 100,
+            "height": 100,
+            "path": "icon.png",
+            "theme": ["all"]
+        }
+    ],
+    "entryPoints": [
+        {
+            "type": "widget",
+            "id": "{id}.entrypoint1",
+            "label": {
+                "default": "Hello World Starter"
+            },
+            "defaultSize": {
+                "width": 300,
+                "height": 125
+            }
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+select,
+option {
+    width: 150px;
+}
+
+#whole {
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 -1px rgb(244, 242, 242);
+    box-sizing: border-box;
+    height: 400px;
+    padding-left: 30px;
+}
+
+#url {
+    padding: 5px 5px;
+}
+
+#create, #load {
+    background-color: #04aa6d;
+    color: white;
+    margin-left: 15px;
+    padding: 8px 8px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+#load {
+    margin-top: 15px;
+}
+
+#loading {
+    /* position: absolute;
+    top: 20%;
+    left: 50%; */
+    font-size: 80px;
+    text-align: center;
+}
+
+.circle {
+    text-align: center;
+}
+
+#user {
+    position: relative;
+    float: right;
+    top: -20px;
+    /* right: 300px;
+  top: 120px; */
+}
+
+/* #resultant-url {
+    padding-top: 100px;
+} */
+
+#addon-url {
+    padding-top: 35px;
+    padding-bottom: 5px;
+}
+
+#codespace-url {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+#create-project-loader {
+    margin-top: 40px;
+    /* text-align: center; */
+}

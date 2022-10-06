@@ -1,0 +1,21 @@
+{
+    "name": "wxp-js-starter",
+    "version": "1.0.0",
+    "description": "WXP widget application.",
+    "scripts": {
+        "clean": "wxp-scripts clean",
+        "build": "wxp-scripts build",
+        "start": "wxp-scripts start",
+        "prettier": "prettier --w ./"
+    },
+    "keywords": [
+        "adobe",
+        "wxp",
+        "widget"
+    ],
+    "devDependencies": {
+        "@wxp/wxp-core": "https://cces-wxp-sdk.stage.adobecces.com/npm/wxp-core.tgz",
+        "@wxp/wxp-scripts": "https://cces-wxp-sdk.stage.adobecces.com/npm/wxp-scripts.tgz",
+        "prettier": "2.6.0"
+    }
+}

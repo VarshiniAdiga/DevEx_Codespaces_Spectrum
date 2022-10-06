@@ -1,0 +1,70 @@
+body {
+    padding: 30px;
+    margin: 7em auto 1em;
+    width: 70%;
+    height: 25%;
+    min-width: 100px;
+}
+
+/* select,
+option {
+    width: 150px;
+}
+
+#signon {
+    text-align: center;
+}
+
+#whole {
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 -1px rgb(244, 242, 242);
+    box-sizing: border-box;
+    height: 250px;
+    padding-left: 30px;
+}
+
+#url {
+    padding: 5px 5px;
+}
+
+#login {
+    background-color: #04aa6d;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    text-align: center;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#create {
+    background-color: #04aa6d;
+    color: white;
+    margin-left: 15px;
+    padding: 8px 8px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+#loading {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    font-size: xx-large;
+}
+
+.circle {
+    text-align: center;
+}
+
+#user {
+    position: relative;
+    float: right;
+    top: -20px;
+} */
