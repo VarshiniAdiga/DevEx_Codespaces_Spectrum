@@ -9,10 +9,17 @@
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 20%;
-    text-align: center;
+    /* width: 20%; */
+    /* text-align: center; */
 }
 
 button:hover {
     opacity: 0.8;
+}
+
+#dialog {
+    text-align: center;
+    padding-left: 40%;
+    padding-top: 10%;
+    padding-right: 40%;
 }

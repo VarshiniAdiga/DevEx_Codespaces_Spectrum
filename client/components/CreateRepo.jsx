@@ -6,7 +6,7 @@ import { Octokit } from "octokit";
 
 import { Circles } from "react-loader-spinner";
 
-import "./CreateRepo.css"
+import "./CreateRepo.css";
 
 export default class CreateRepo extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class CreateRepo extends React.Component {
             clickToCreateProj: false
         };
         this.orgName = "CodespacesDemoOrg";
-        this.repoName = "SampleAddon_3";
+        this.repoName = "SampleAddon_4";
         this.listAddonRepositories();
     }
 
@@ -41,9 +41,9 @@ export default class CreateRepo extends React.Component {
                 await this.octokit.rest.repos.getContent({
                     owner: this.orgName,
                     repo: repo.name,
-                    path: ".wxprc",
+                    path: ".wxprc"
                 });
-            } catch(error) {
+            } catch (error) {
                 // ignore 404 as it is not an add-on project repository
                 console.log(`${repo.name} not a add-on project`);
                 continue;
@@ -84,7 +84,7 @@ export default class CreateRepo extends React.Component {
             name: this.repoName
         });
 
-        this.setState({ new_repo_url: data.html_url, new_repo_name: data.name })
+        this.setState({ new_repo_url: data.html_url, new_repo_name: data.name });
 
         const cwd = await getCurrentWorkingDirectory();
 
@@ -106,7 +106,7 @@ export default class CreateRepo extends React.Component {
     }
 
     async createGithubCodespace() {
-        this.setState({ clickToCreateProj: true });
+        this.setState({ codespace_url: "", clickToCreateProj: true });
 
         await this.createGithubRepository();
 
@@ -117,13 +117,25 @@ export default class CreateRepo extends React.Component {
 
         const codespace_url = codespace.data.web_url;
 
-        this.setState({ codespace_url: codespace_url, clickToCreateProj: false })
+        this.setState({ codespace_url: codespace_url, clickToCreateProj: false });
 
         window.open(codespace_url, "_blank");
     }
 
     handleTemplateOptionChange(event) {
         this.setState({ template: event.target.value });
+    }
+
+    loadAddOn() {
+        const index = this.state.codespace_url.indexOf(".");
+        const httpsUrl = this.state.codespace_url.slice(0, index) + "-5241.githubpreview.dev";
+        const wssUrl = "wss" + httpsUrl.slice(5);
+        const AddOnData = {
+            httpsUrl: httpsUrl,
+            wssUrl: wssUrl,
+            addOnId: "starter-addon"
+        };
+        window.parent.postMessage(AddOnData, "*");
     }
 
     render() {
@@ -135,40 +147,36 @@ export default class CreateRepo extends React.Component {
                 </div>
             );
         }
-        const loadingStyle = {
-            "position": "relative",
-            "top": "80%",
-            "left": "45%",
-        };
+        // const loadingStyle = {
+        //     position: "relative",
+        //     top: "80%",
+        //     left: "35%"
+        // };
 
         const createProjLoaderStyle = {
-            "position": "absolute",
-            "top": "27%",
-            "left": "45%",
+            position: "absolute",
+            top: "27%",
+            left: "45%"
         };
 
         const opacity = {
-            "opacity" : this.state.clickToCreateProj ? "0.3" : "1"
-        }
-        // const loadingStyle = {
-        //     "position": "relative",
-        //     "top": "80%",
-        //     "left": "10%",
-        // };
+            opacity: this.state.clickToCreateProj ? "0.3" : "1"
+        };
+
         return (
             <div>
                 {this.state.loadPage ? (
                     <div id="whole" style={opacity}>
-                        <div id="user"> Logged in as {this.state.userName} </div>
+                        {/* <div id="user"> Logged in as {this.state.userName} </div> */}
                         {this.state.displayAddon ? (
                             <div id="list">
-                                <h2>List of existing add-on projects</h2>
+                                <h4>List of existing add-on projects</h4>
                                 {repos}
                             </div>
                         ) : null}
                         {this.state.createTemplate ? (
                             <div id="template">
-                                <h2>Create a new add-on project</h2>
+                                <h4>Create a new add-on project</h4>
                                 <label>Choose a template : </label>
                                 <select
                                     onChange={this.handleTemplateOptionChange.bind(this)}
@@ -182,43 +190,44 @@ export default class CreateRepo extends React.Component {
                                 </button>
                             </div>
                         ) : null}
-                        { this.state.codespace_url ? (
+                        {this.state.codespace_url ? (
                             <div id="resultant-url">
-                                <div id="addon-url">Add-on project created:&nbsp;
+                                <div id="addon-url">
+                                    <b>Add-on project created:</b>&nbsp;
                                     <a href={this.state.new_repo_url}>{this.state.new_repo_name}</a>
                                 </div>
-                                <div id="codespace-url">Codespace created:&nbsp;
-                                    <a href={this.state.codespace_url}>{this.state.codespace_url}</a>
+                                <div id="codespace-url">
+                                    <b>Codespace created:</b>&nbsp;
+                                    <a href={this.state.codespace_url}>
+                                        {this.state.codespace_url}
+                                    </a>
                                 </div>
-                                <button id="load">
+                                <button id="load" onClick={this.loadAddOn.bind(this)}>
                                     Load Add-on
                                 </button>
                             </div>
-                        ): this.state.clickToCreateProj ? 
-                            // <div id="create-project-loader">
-                            //     <div> Creating Add-on Project </div>
+                        ) : this.state.clickToCreateProj ? (
                             <Circles
-                                height="80"
-                                width="80"
+                                height="50"
+                                width="50"
                                 radius="9"
                                 color="black"
                                 ariaLabel="loading"
                                 wrapperStyle={createProjLoaderStyle}
                             />
-                            // </div> 
-                            : null
-                        }
+                        ) :
+                        null}
                     </div>
                 ) : (
-                    <div id="loading">
-                        <div> Loading... </div>
+                    <div>
+                        {/* <div id="loading"> Loading... </div> */}
                         <Circles
-                            height="80"
-                            width="80"
+                            height="50"
+                            width="50"
                             radius="9"
                             color="black"
                             ariaLabel="loading"
-                            wrapperStyle={loadingStyle}
+                            wrapperStyle={createProjLoaderStyle}
                         />
                     </div>
                 )}

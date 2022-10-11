@@ -1,13 +1,13 @@
 select,
 option {
-    width: 150px;
+    width: 100px;
 }
 
 #whole {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc;
     box-shadow: 0 1px 0 -1px rgb(244, 242, 242);
-    box-sizing: border-box;
-    height: 400px;
+    box-sizing: border-box; */
+    height: 530px;
     padding-left: 30px;
 }
 
@@ -15,25 +15,37 @@ option {
     padding: 5px 5px;
 }
 
-#create, #load {
+#create,
+#load {
     background-color: #04aa6d;
     color: white;
-    margin-left: 15px;
+    margin-left: 35px;
     padding: 8px 8px;
     border: none;
     cursor: pointer;
     text-align: center;
 }
 
+#create {
+    margin-top: 15px;
+    /* width: 45%; */
+    /* margin-left: 15px; */
+}
+
 #load {
     margin-top: 15px;
+    /* width: 45%; */
 }
 
 #loading {
-    /* position: absolute;
-    top: 20%;
-    left: 50%; */
-    font-size: 80px;
+    /* position: relative; */
+    /* padding: 10px; */
+    /* top: 20%;
+    left: 0%; */
+    /* position: "absolute"; */
+    /* top: "27%"; */
+    /* left: "45%"; */
+    font-size: 30px;
     text-align: center;
 }
 
