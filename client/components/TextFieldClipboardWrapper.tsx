@@ -2,8 +2,12 @@ import React from "react";
 import { ActionButton, TextField, TooltipTrigger, Tooltip } from "@adobe/react-spectrum";
 
 import Copy from "@spectrum-icons/workflow/Copy";
+import { TextFieldClipboardWrapperProps } from "../Types";
 
-export default class TextFieldClipboardWrapper extends React.Component {
+export default class TextFieldClipboardWrapper extends React.Component<
+    TextFieldClipboardWrapperProps,
+    {}
+> {
     handleCopy() {
         navigator.clipboard.writeText(this.props.text);
     }

@@ -4,11 +4,8 @@ option {
 }
 
 #whole {
-    /* border: 1px solid #ccc;
-    box-shadow: 0 1px 0 -1px rgb(244, 242, 242);
-    box-sizing: border-box; */
     height: 530px;
-    padding-left: 30px;
+    padding-left: 10px;
 }
 
 #url {
@@ -19,35 +16,32 @@ option {
 #load {
     background-color: #04aa6d;
     color: white;
-    margin-left: 35px;
-    padding: 8px 8px;
+    margin-left: 25px;
+    margin-top: 10px;
     border: none;
     cursor: pointer;
     text-align: center;
 }
 
-#create {
-    margin-top: 15px;
-    /* width: 45%; */
-    /* margin-left: 15px; */
-}
-
-#load {
-    margin-top: 15px;
-    /* width: 45%; */
-}
-
 #loading {
-    /* position: relative; */
-    /* padding: 10px; */
-    /* top: 20%;
-    left: 0%; */
-    /* position: "absolute"; */
-    /* top: "27%"; */
-    /* left: "45%"; */
+  /* width: 40%; */
+    /* align-items: center;
+    justify-content: center; */
+    /* min-height: 100vh; */
+    margin-top: 10%;
+    margin-left: 20%;
+    /* unicode-bidi: isolate; */
+    /* position: "absolute";
+    top: "40%";
+    left: "40%"; */
+    /* margin-top: 20%;
+    margin-left: 50%; */
+}
+
+/* #loading {
     font-size: 30px;
     text-align: center;
-}
+} */
 
 .circle {
     text-align: center;
@@ -57,13 +51,7 @@ option {
     position: relative;
     float: right;
     top: -20px;
-    /* right: 300px;
-  top: 120px; */
 }
-
-/* #resultant-url {
-    padding-top: 100px;
-} */
 
 #addon-url {
     padding-top: 35px;
@@ -77,5 +65,4 @@ option {
 
 #create-project-loader {
     margin-top: 40px;
-    /* text-align: center; */
 }

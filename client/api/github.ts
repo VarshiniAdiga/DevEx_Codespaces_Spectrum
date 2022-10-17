@@ -1,4 +1,4 @@
-export async function getUserAccessToken(code, state) {
+export async function getUserAccessToken(code: string, state: string) {
     const body = {
         code: code,
         state: state

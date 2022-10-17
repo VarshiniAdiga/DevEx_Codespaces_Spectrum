@@ -1,15 +1,22 @@
 import React from "react";
-import { getCurrentWorkingDirectory, readDirectory } from "../api/filesystem.js";
+import { getCurrentWorkingDirectory, readDirectory } from "../api/filesystem";
 import * as path from "path";
 
 import { Octokit } from "octokit";
 
-import { Circles } from "react-loader-spinner";
+// import { Circles } from "react-loader-spinner";
+
+import { CreateRepoState, CreateRepoProps } from "../Types.js";
+
+import { ActionButton, Heading, ComboBox, Item, ProgressCircle } from "@adobe/react-spectrum";
 
 import "./CreateRepo.css";
 
-export default class CreateRepo extends React.Component {
-    constructor(props) {
+export default class CreateRepo extends React.Component<CreateRepoProps, CreateRepoState> {
+    private octokit: Octokit;
+    private readonly orgName = "CodespacesDemoOrg";
+    private readonly repoName = "SampleAddon_4";
+    constructor(props: any) {
         super(props);
         this.octokit = new Octokit({
             auth: props.accessToken
@@ -27,8 +34,6 @@ export default class CreateRepo extends React.Component {
             new_repo_name: "",
             clickToCreateProj: false
         };
-        this.orgName = "CodespacesDemoOrg";
-        this.repoName = "SampleAddon_4";
         this.listAddonRepositories();
     }
 
@@ -122,8 +127,8 @@ export default class CreateRepo extends React.Component {
         window.open(codespace_url, "_blank");
     }
 
-    handleTemplateOptionChange(event) {
-        this.setState({ template: event.target.value });
+    handleTemplateOptionChange(key: string) {
+        this.setState({ template: key });
     }
 
     loadAddOn() {
@@ -139,7 +144,7 @@ export default class CreateRepo extends React.Component {
     }
 
     render() {
-        var repos = [];
+        var repos: Array<React.ReactNode> = [];
         for (var i = 0; i < this.state.repoCount; i += 1) {
             repos.push(
                 <div id="url">
@@ -147,17 +152,12 @@ export default class CreateRepo extends React.Component {
                 </div>
             );
         }
-        // const loadingStyle = {
-        //     position: "relative",
-        //     top: "80%",
-        //     left: "35%"
-        // };
 
-        const createProjLoaderStyle = {
-            position: "absolute",
-            top: "27%",
-            left: "45%"
-        };
+        // const createProjLoaderStyle = {
+        //     position: "absolute",
+        //     top: "40%",
+        //     left: "40%"
+        // };
 
         const opacity = {
             opacity: this.state.clickToCreateProj ? "0.3" : "1"
@@ -165,72 +165,79 @@ export default class CreateRepo extends React.Component {
 
         return (
             <div>
-                {this.state.loadPage ? (
-                    <div id="whole" style={opacity}>
-                        {/* <div id="user"> Logged in as {this.state.userName} </div> */}
-                        {this.state.displayAddon ? (
-                            <div id="list">
-                                <h4>List of existing add-on projects</h4>
-                                {repos}
-                            </div>
-                        ) : null}
-                        {this.state.createTemplate ? (
-                            <div id="template">
-                                <h4>Create a new add-on project</h4>
-                                <label>Choose a template : </label>
-                                <select
-                                    onChange={this.handleTemplateOptionChange.bind(this)}
-                                    placeholder="Choose a template"
-                                >
-                                    <option selected>starter</option>
-                                    <option>react-starter</option>
-                                </select>
-                                <button id="create" onClick={this.createGithubCodespace.bind(this)}>
-                                    Create Project
-                                </button>
-                            </div>
-                        ) : null}
-                        {this.state.codespace_url ? (
-                            <div id="resultant-url">
-                                <div id="addon-url">
-                                    <b>Add-on project created:</b>&nbsp;
-                                    <a href={this.state.new_repo_url}>{this.state.new_repo_name}</a>
+                    {this.state.loadPage ? (
+                        <div id="whole" style={opacity}>
+                            {/* <div id="user"> Logged in as {this.state.userName} </div> */}
+                            {this.state.displayAddon ? (
+                                <div id="list">
+                                    <Heading>List of existing add-on projects</Heading>
+                                    {repos}
                                 </div>
-                                <div id="codespace-url">
-                                    <b>Codespace created:</b>&nbsp;
-                                    <a href={this.state.codespace_url}>
-                                        {this.state.codespace_url}
-                                    </a>
+                            ) : null}
+                            {this.state.createTemplate ? (
+                                <div id="template">
+                                    <Heading>Create a new add-on project</Heading>
+                                    <ComboBox
+                                        label="Choose a template :"
+                                        defaultInputValue={"starter"}
+                                        onInputChange={this.handleTemplateOptionChange.bind(this)}
+                                    >
+                                        <Item key="starter">starter</Item>
+                                        <Item key="react-starter">react-starter</Item>
+                                    </ComboBox>
+                                    <div>
+                                        <ActionButton
+                                            id="create"
+                                            onPress={this.createGithubCodespace.bind(this)}
+                                        >
+                                            Create Project
+                                        </ActionButton>
+                                    </div>
                                 </div>
-                                <button id="load" onClick={this.loadAddOn.bind(this)}>
-                                    Load Add-on
-                                </button>
-                            </div>
-                        ) : this.state.clickToCreateProj ? (
-                            <Circles
+                            ) : null}
+                            {this.state.codespace_url ? (
+                                <div id="resultant-url">
+                                    <div id="addon-url">
+                                        <b>Add-on project created:</b>&nbsp;
+                                        <a href={this.state.new_repo_url}>
+                                            {this.state.new_repo_name}
+                                        </a>
+                                    </div>
+                                    <div id="codespace-url">
+                                        <b>Codespace created:</b>&nbsp;
+                                        <a href={this.state.codespace_url}>
+                                            {this.state.codespace_url}
+                                        </a>
+                                    </div>
+                                    <ActionButton id="load" onPress={this.loadAddOn.bind(this)}>
+                                        Load Add-on
+                                    </ActionButton>
+                                </div>
+                            ) : this.state.clickToCreateProj ? (
+                                <div id="loading">
+                                <ProgressCircle size="L" id="loading" aria-label="Loading…" isIndeterminate />
+                                </div>
+                                // <Circles
+                                //     height="50"
+                                //     width="50"
+                                //     color="black"
+                                //     ariaLabel="loading"
+                                //     wrapperStyle={createProjLoaderStyle}
+                                // />
+                            ) : null}
+                        </div>
+                    ) : (
+                        <div id="loading">
+                            <ProgressCircle size="L" id="loading" aria-label="Loading…" isIndeterminate />
+                            {/* <Circles
                                 height="50"
                                 width="50"
-                                radius="9"
                                 color="black"
                                 ariaLabel="loading"
                                 wrapperStyle={createProjLoaderStyle}
-                            />
-                        ) :
-                        null}
-                    </div>
-                ) : (
-                    <div>
-                        {/* <div id="loading"> Loading... </div> */}
-                        <Circles
-                            height="50"
-                            width="50"
-                            radius="9"
-                            color="black"
-                            ariaLabel="loading"
-                            wrapperStyle={createProjLoaderStyle}
-                        />
-                    </div>
-                )}
+                            /> */}
+                        </div>
+                    )}
             </div>
         );
     }

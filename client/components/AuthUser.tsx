@@ -1,33 +1,34 @@
 import React from "react";
-import { getUserAccessToken } from "../api/github.js";
+import { getUserAccessToken } from "../api/github";
 import { getWebFlowAuthorizationUrl } from "@octokit/oauth-methods";
 import queryString from "query-string";
 
-import { Provider, defaultTheme } from "@adobe/react-spectrum";
+// import { Provider, defaultTheme } from "@adobe/react-spectrum";
 
 import {
     ActionButton,
-    Button,
-    ButtonGroup,
+    // Button,
+    // ButtonGroup,
     Content,
     Dialog,
-    DialogTrigger,
-    Divider,
+    // DialogTrigger,
+    // Divider,
     TextField,
-    Heading,
+    // Heading,
     Text
 } from "@adobe/react-spectrum";
 
-import TextFieldClipboardWrapper from "./TextFieldClipboardWrapper.jsx";
+import TextFieldClipboardWrapper from "./TextFieldClipboardWrapper";
 
-import CreateRepo from "./CreateRepo.jsx";
+import CreateRepo from "./CreateRepo";
 
 import "./AuthUser.css";
+import { AuthUserState } from "../Types.js";
 
-export default class AuthUser extends React.Component {
-    constructor(props) {
+export default class AuthUser extends React.Component<{}, AuthUserState> {
+    constructor(props: any) {
         super(props);
-        this.state = { accessToken: "", signOn: true, canCreateRepo: false, openDialog: false };
+        this.state = { accessToken: "", signOn: true, canCreateRepo: false, openDialog: false, pasteAccessToken: false };
         this.authorizeUser();
         this.openGithubSignOnUrl();
     }
@@ -42,7 +43,7 @@ export default class AuthUser extends React.Component {
     }
 
     async authorizeUser() {
-        const params = queryString.parse(queryString.extract(window.location.href));
+        const params: any = queryString.parse(queryString.extract(window.location.href));
         if (params.code && params.state) {
             const accessToken = await getUserAccessToken(params.code, params.state);
             if (!accessToken) {
@@ -54,21 +55,27 @@ export default class AuthUser extends React.Component {
     }
 
     onTokenOk() {
-        this.setState({ canCreateRepo: true, openDialog: false, signOn: false });
+        this.setState({ canCreateRepo: true, openDialog: false, pasteAccessToken: false });
     }
 
-    setAccessToken(value) {
+    setAccessToken(value: string) {
         this.setState({ accessToken: value });
     }
 
+    handleLogin() {
+        const loginUrl = this.openGithubSignOnUrl();
+        this.setState({ pasteAccessToken: true, signOn: false })
+        window.open(loginUrl, "_blank");
+    }
+
     render() {
-        const url = this.openGithubSignOnUrl();
+        // const url = this.openGithubSignOnUrl();
         return (
             <div>
                 {this.state.signOn ? (
-                    <Provider theme={defaultTheme}>
                         <div id="signon">
-                            <DialogTrigger>
+                            <ActionButton id="login" onPress={this.handleLogin.bind(this)}>Login in via GitHub</ActionButton>
+                            {/* <DialogTrigger>
                                 <ActionButton id="login">Login in via GitHub</ActionButton>
                                 {close => (
                                     <Dialog size="S">
@@ -80,7 +87,6 @@ export default class AuthUser extends React.Component {
                                                 in a browser window:
                                             </Text>
                                             <TextFieldClipboardWrapper text={url} />
-                                            <br />
                                             <br />
                                             <Text>
                                                 After completing the authentication flow, paste in
@@ -107,16 +113,29 @@ export default class AuthUser extends React.Component {
                                         </ButtonGroup>
                                     </Dialog>
                                 )}
-                            </DialogTrigger>
+                            </DialogTrigger> */}
                         </div>
-                    </Provider>
+                ) : null}
+                {this.state.pasteAccessToken ? (
+                    <div>
+                        <TextField
+                                label="Personal Access Token"
+                                isRequired
+                                onChange={this.setAccessToken.bind(this)}
+                            ></TextField>
+                            <ActionButton id="ok"
+                                onPress={this.onTokenOk.bind(this)}
+                             >
+                                OK
+                            </ActionButton>
+                    </div>
                 ) : null}
                 {this.state.openDialog ? (
                     <div id="dialog">
-                        <Provider theme={defaultTheme}>
                             <Dialog size="S">
                                 <Content>
                                     <Text>
+                                        {/* Login successful, you may close this tab */}
                                         Your encoded GitHub auth token is ready. Please copy it from
                                         here, and paste it back into the previous window.
                                     </Text>
@@ -124,10 +143,8 @@ export default class AuthUser extends React.Component {
                                     <TextFieldClipboardWrapper text={this.state.accessToken} />
                                 </Content>
                             </Dialog>
-                        </Provider>
                     </div>
-                ) :
-                null}
+                ) : null}
                 {this.state.canCreateRepo ? (
                     <CreateRepo accessToken={this.state.accessToken} />
                 ) : null}

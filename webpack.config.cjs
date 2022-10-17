@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: "./index.jsx",
+    entry: "./index.tsx",
     mode: "development",
     context: path.join(__dirname, "client"),
     output: {
@@ -23,10 +23,20 @@ module.exports = {
                 }
             },
             {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "ts-loader"
+                }
+            },
+            {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]
             }
         ]
+    },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js", ".jsx"]
     },
     devtool: "source-map",
     plugins: [

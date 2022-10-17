@@ -43,7 +43,7 @@ function getResultObjectBasedOnAuthResponse(error, body) {
     } else if (error) {
         return { error: error };
     } else {
-        return { error: GENERIC_ERROR_STRING };
+        return { error: "Failed to authorize" };
     }
 }
 

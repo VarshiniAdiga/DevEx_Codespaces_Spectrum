@@ -4,8 +4,14 @@ import path from "path";
 
 const fsApi = express();
 
+// type DirectoryData = {
+//     fileName: string;
+//     fileContent: string;
+// }
+
 fsApi.post("/readDir", (req, res) => {
-    const data = [];
+    // var data: DirectoryData[];
+    var data = [];
 
     const readFilesRecursively = directory => {
         const subDirectories = fs.readdirSync(directory);
@@ -29,7 +35,7 @@ fsApi.post("/readDir", (req, res) => {
     return res.json(readFilesRecursively(req.body.dirPath));
 });
 
-fsApi.get("/getcwd", (req, res) => {
+fsApi.get("/getcwd", (_req, res) => {
     const currentDir = process.cwd();
     return res.json(currentDir);
 });

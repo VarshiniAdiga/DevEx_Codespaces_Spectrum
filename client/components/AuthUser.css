@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-#login {
+#login, #ok {
     background-color: #04aa6d;
     color: white;
     padding: 14px 20px;
@@ -11,6 +11,19 @@
     cursor: pointer;
     /* width: 20%; */
     /* text-align: center; */
+}
+
+/* #accessToken {
+    display: flex;
+} */
+
+#ok {
+    padding: 5px 5px;
+    margin-left: 10px;
+    margin-top: 25px;
+    /* margin-left: 20px; */
+    /* margin-top: 25px;
+    margin-left: 10px; */
 }
 
 button:hover {

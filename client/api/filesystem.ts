@@ -10,7 +10,7 @@
 //   return response.json();
 // }
 
-export async function readDirectory(dirPath) {
+export async function readDirectory(dirPath: string) {
     const body = { dirPath: dirPath };
     const response = await fetch("/api/filesystem/readDir", {
         method: "POST",
