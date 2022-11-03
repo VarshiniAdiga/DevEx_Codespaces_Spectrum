@@ -16,36 +16,9 @@
  * from Adobe.
  **************************************************************************/
 
-export type AuthUserState = {
-    accessToken: string;
-    signOn: boolean;
-    canCreateRepo: boolean;
-    openDialog: boolean;
-};
-
-export type RepoMap = {
-    name: string;
-    url: string;
-};
-
-export type CreateRepoProps = {
-    accessToken: string;
-};
-
-export type CreateRepoState = {
-    repoCount: number;
-    repoMap: Array<RepoMap>;
-    displayAddon: boolean;
-    template: string;
-    createTemplate: boolean;
-    userName: string;
-    loadPage: boolean;
-    codespace_url: string;
-    new_repo_url: string;
-    new_repo_name: string;
-    clickToCreateProj: boolean;
-};
-
-export type TextFieldClipboardWrapperProps = {
-    text: string;
-};
+#loading {
+    /* margin-top: 300%;
+    margin-left: 500%; */
+    margin-top: 10%;
+    margin-left: 30%;
+}

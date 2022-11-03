@@ -16,36 +16,15 @@
  * from Adobe.
  **************************************************************************/
 
-export type AuthUserState = {
-    accessToken: string;
-    signOn: boolean;
-    canCreateRepo: boolean;
-    openDialog: boolean;
-};
-
-export type RepoMap = {
-    name: string;
-    url: string;
-};
-
-export type CreateRepoProps = {
-    accessToken: string;
-};
-
-export type CreateRepoState = {
-    repoCount: number;
-    repoMap: Array<RepoMap>;
-    displayAddon: boolean;
-    template: string;
-    createTemplate: boolean;
-    userName: string;
-    loadPage: boolean;
-    codespace_url: string;
-    new_repo_url: string;
-    new_repo_name: string;
-    clickToCreateProj: boolean;
-};
-
-export type TextFieldClipboardWrapperProps = {
-    text: string;
-};
+#leftNavBarContainer {
+    background-color: var(--spectrum-global-color-gray-50);
+    /* margin-right: var(2px, 2px); */
+    /* padding-top: var(--spectrum-global-dimension-size-75, var(--spectrum-alias-size-75)); */
+    /* height: 100%;
+    min-width: 100%; */
+    /* box-sizing: border-box;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--spectrum-alias-border-color-dark, #cacaca);
+    border-radius: 5px; */
+}

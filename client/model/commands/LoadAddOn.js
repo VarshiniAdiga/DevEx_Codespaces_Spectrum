@@ -16,36 +16,24 @@
  * from Adobe.
  **************************************************************************/
 
-export type AuthUserState = {
-    accessToken: string;
-    signOn: boolean;
-    canCreateRepo: boolean;
-    openDialog: boolean;
-};
+export class LoadAddOn {
+    constructor(options) {
+        this.codespaceUrl = options.codespaceUrl;
+        this.addOnId = options.addOnId;
+    }
 
-export type RepoMap = {
-    name: string;
-    url: string;
-};
+    async execute() {
+        const index = this.codespaceUrl.indexOf(".");
+        const httpsUrl = this.codespaceUrl.slice(0, index) + "-5241.preview.app.github.dev";
+        const wssUrl = "wss" + httpsUrl.slice(5);
+        const addOnData = {
+            httpsUrl: httpsUrl,
+            wssUrl: wssUrl,
+            addOnId: this.addOnId
+        };
+        console.log(addOnData);
+        window.parent.postMessage(addOnData, "*");
 
-export type CreateRepoProps = {
-    accessToken: string;
-};
-
-export type CreateRepoState = {
-    repoCount: number;
-    repoMap: Array<RepoMap>;
-    displayAddon: boolean;
-    template: string;
-    createTemplate: boolean;
-    userName: string;
-    loadPage: boolean;
-    codespace_url: string;
-    new_repo_url: string;
-    new_repo_name: string;
-    clickToCreateProj: boolean;
-};
-
-export type TextFieldClipboardWrapperProps = {
-    text: string;
-};
+        return Promise.resolve("Success");
+    }
+}

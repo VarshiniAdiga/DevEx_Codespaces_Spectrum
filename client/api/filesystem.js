@@ -1,3 +1,21 @@
+/*************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ *  Copyright 2022 Adobe
+ *  All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ **************************************************************************/
+
 // export async function readFile(filePath) {
 //   const body = { filePath: filePath };
 //   const response = await fetch("/api/filesystem/read", {
@@ -10,7 +28,7 @@
 //   return response.json();
 // }
 
-export async function readDirectory(dirPath: string) {
+export async function readDirectory(dirPath) {
     const body = { dirPath: dirPath };
     const response = await fetch("/api/filesystem/readDir", {
         method: "POST",
@@ -29,7 +47,7 @@ export async function getCurrentWorkingDirectory() {
             "Content-Type": "application/json"
         }
     });
-    console.log(response);
+    // console.log(response);
     return response.json();
 }
 

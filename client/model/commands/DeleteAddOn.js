@@ -16,36 +16,24 @@
  * from Adobe.
  **************************************************************************/
 
-export type AuthUserState = {
-    accessToken: string;
-    signOn: boolean;
-    canCreateRepo: boolean;
-    openDialog: boolean;
-};
+import { Octokit } from "octokit";
 
-export type RepoMap = {
-    name: string;
-    url: string;
-};
+export class DeleteAddOn {
+    constructor(options) {
+        this.octokit = new Octokit({
+            auth: options.accessToken
+        });
+        this.orgName = options.orgName;
+        this.repoName = options.repoName;
+    }
 
-export type CreateRepoProps = {
-    accessToken: string;
-};
+    async execute() {
+        // Delete repo and its corresponding codespaces
+        await this.octokit.rest.repos.delete({
+            owner: this.orgName,
+            repo: this.repoName
+        });
 
-export type CreateRepoState = {
-    repoCount: number;
-    repoMap: Array<RepoMap>;
-    displayAddon: boolean;
-    template: string;
-    createTemplate: boolean;
-    userName: string;
-    loadPage: boolean;
-    codespace_url: string;
-    new_repo_url: string;
-    new_repo_name: string;
-    clickToCreateProj: boolean;
-};
-
-export type TextFieldClipboardWrapperProps = {
-    text: string;
-};
+        return Promise.resolve("Success");
+    }
+}
